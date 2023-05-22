@@ -169,6 +169,7 @@
             <value>
                 <fullName>BLOOM AT WORK</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>BLOOM AT WORK</label>
             </value>
             <value>
@@ -775,6 +776,12 @@
                 <fullName>INTERNAL DEVELOPMENT</fullName>
                 <default>false</default>
                 <label>INTERNAL DEVELOPMENT</label>
+            </value>
+            <value>
+                <fullName>INTERNAL DEVELOPPEMENT</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>INTERNAL DEVELOPPEMENT</label>
             </value>
             <value>
                 <fullName>INVOKE</fullName>
@@ -1657,7 +1664,7 @@
                 <label>ZEDONK</label>
             </value>
             <value>
-                <fullName>ZESTMEUP</fullName>
+                <fullName>ZEST</fullName>
                 <default>false</default>
                 <label>ZESTMEUP</label>
             </value>
