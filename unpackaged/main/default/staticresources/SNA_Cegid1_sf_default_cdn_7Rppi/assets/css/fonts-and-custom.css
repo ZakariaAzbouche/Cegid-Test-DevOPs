@@ -1,0 +1,312 @@
+@font-face {
+    font-family: 'mySegoeUI';
+    src: url(../resource/SegoeUI);
+}
+
+.page-header .page-header-main {
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+.page-header {
+  position: relative;
+  padding: 2rem 0 0;
+}
+
+.page-header .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.container {
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
+  max-width: 70rem;
+  margin: 0 auto;
+}
+
+.page-header-main.two-columns {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 90%;
+}
+
+.page-header-main h1 {
+  font-size: 3rem !important;
+  line-height: 3.75rem !important;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-padding-start: 0;
+  font-family: Gelion,Arial,sans-serif;
+  font-weight: 700;
+  padding-bottom: 1.25rem;
+  margin: 0;
+  word-break: break-word;
+  color: #0046fe;
+}
+
+.page-header-main p.lead {
+  font-size: 1.25rem !important;
+  line-height: 2rem !important;
+}
+
+.page-header-main p {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-padding-start: 0;
+  font-family: Gelion,Arial,sans-serif;
+  color: #002c52;
+  font-weight: 400;
+  padding-bottom: 1rem;
+  margin: 0;
+  line-height: 1.5rem;
+}
+
+.blue {
+  color: #0046fe !important;
+}
+
+.orange {
+  color: #ff5c35 !important;
+}
+
+.btn-accent {
+  background-color: #ff5c35 !important;
+  color: #fff !important;
+  border: 1px solid #ff5c35 !important;
+}
+
+.btn-dark {
+  background-color: #002c52 !important;
+  color: #fff !important;
+  border: 1px solid #002c52 !important;
+}
+
+.btn-white {
+  background-color: white !important;
+  color: #002c52 !important;
+  border: 1px solid white !important;
+  width: 214px;
+  padding: 20px !important;
+  text-transform: none !important;
+  font-size: 19px !important;
+}
+
+.btn {
+  border-radius: 2rem;
+  padding: 0.6875rem 1rem;
+  font-size: 1rem;
+  font-family: Gelion,Arial,sans-serif;
+  font-weight: 400;
+  text-align: center;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  line-height: 1.5rem;
+  cursor: pointer;
+  display: inline-block;
+  text-transform: uppercase;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+a, a:hover {
+  -webkit-transition: all .35s ease;
+  transition: all .35s ease;
+  text-decoration: none !important;
+}
+
+h1.block-header {
+  font-size: 2rem !important;
+  line-height: 1rem !important;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-padding-start: 0;
+  font-family: Gelion,Arial,sans-serif;
+  font-weight: 700;
+  padding: 1.25rem 0px;
+  margin: 0;
+  word-break: break-word;
+  color: #0046fe;
+}
+
+.white{
+  color: white !important;
+}
+
+
+.forceCommunityCarousel a.slds-carousel__indicator-action.slds-is-active {
+  background: #ff5c35 !important;
+  border: #ff5c35 solid 1px !important;
+}
+
+.home-cover:before {
+  content: '';
+  position: absolute;
+  width: 100vw;
+  top: -14px;
+  left: 50%;
+  margin-left: -50vw;
+  background: url(/sfsites/c/file-asset/Arcenciel), #EAECF0;
+  background-repeat: no-repeat;
+  background-position: 95% 70%;
+  background-size: 840px;
+  height: 103%;
+}
+
+.nouveautes-cover:before {
+  content: '';
+  position: absolute;
+  width: 50vw;
+  top: -23px;
+  left: 100%;
+  margin-left: -50vw;
+  background: #0046fe;
+  height: 600px;
+  overflow: hidden;
+  z-index: -2;
+}
+.nouveautes-cover {
+  padding-left: 60px;
+}
+
+@media screen and (max-width: 768px) {
+  .nouveautes-cover:before {
+    content: '';
+    position: absolute;
+    width: 100vw;
+    top: -23px;
+    left: 50%;
+    margin-left: -50vw;
+    background: #0046fe;
+    height: 550px;
+    overflow: hidden;
+    z-index: -2;
+  }
+}
+
+.group-cover:before {
+  content: '';
+  position: absolute;
+  width: 100vw;
+  top: -14px;
+  left: 50%;
+  margin-left: -50vw;
+  background: url(/sfsites/c/file-asset/Bulles), #0046fe;
+  background-repeat: no-repeat;
+  background-size: 570px;
+  background-position: 92% 110%;
+  height: 130%;
+}
+.forum-cover:before {
+  content: '';
+  position: absolute;
+  width: 100vw;
+  top: -14px;
+  left: 50%;
+  margin-left: -50vw;
+  height: 146%;
+  background: #EAECF0;
+}
+.actualites-cover:before {
+  content: '';
+  position: absolute;
+  width: 100vw;
+  top: -14px;
+  left: 50%;
+  margin-left: -50vw;
+  background: url(/sfsites/c/file-asset/Confetis), #EAECF0;
+  background-repeat: no-repeat;
+  background-position: 105% 50%;
+  height: 166px;
+}
+.cegid-life-cover:before {
+  content: '';
+  position: absolute;
+  width: 100vw;
+  top: -18px;
+  left: 50%;
+  margin-left: -50vw;
+  background: url(/sfsites/c/file-asset/Megaphone), #EAECF0;
+  background-size: 920px;
+  background-repeat: no-repeat;
+  background-position: 100% 40%;
+  height: calc(100vh - 80px);
+}
+.partenaires-cover:before {
+  content: '';
+  position: absolute;
+  width: 100vw;
+  top: -18px;
+  left: 50%;
+  margin-left: -50vw;
+  background: url(/sfsites/c/file-asset/Arbre), white;
+  background-size: 920px;
+  background-repeat: no-repeat;
+  background-position: 100% 0%;
+  height: calc(100vh - 80px);
+}
+
+.empty.test-listViewManager.slds-card.slds-card_boundary.slds-grid.slds-grid--vertical.forceListViewManager.forceCommunityRecordListDesktop.forceCommunityObjectHome {
+  padding: 15px 30px;
+  box-shadow: -1px 5px 20px #00000012;
+}
+
+.test-listViewManager.slds-card.slds-card_boundary.slds-grid.slds-grid--vertical.forceListViewManager.forceCommunityRecordListDesktop.forceCommunityObjectHome {
+  box-shadow: rgba(0, 0, 0, 0.07) -1px 5px 20px;
+  padding: 15px 30px;
+}
+
+.cb-section_background {
+  border-radius: 4px;
+  box-shadow: -1px 5px 20px #00000012;
+}
+
+svg.slds-icon.slds-icon-text-default.slds-icon_xx-small {
+  fill: #ff5c35 !important;
+}
+
+svg.slds-button__icon {
+  fill: #ff5c35 !important;
+}
+
+.comm-page-login-home .contentRegion > div {
+    background-color: white;
+	border: 1px solid #b0b0b0;
+	border-radius: 15px;
+	box-shadow: unset;
+	margin: 0 auto;
+	max-width: 800px;
+	padding: var(--lwc-spacingXxLarge);
+	width: 100%;
+  }
+  .comm-page-login-home .socialOption button {
+	font-family: "gelion";
+	font-size: 16px;
+	line-height: 1;
+	padding: 11px 20px;
+    background-color: rgb(255, 92, 53);
+    border-radius: 78px;
+  }
+  .forceCommunityRichText h1.cegid-login--title {
+	color: #0046fe;
+	font-size: 36px;
+  }
+  p.cegid-login--text {
+	font-size: 16px;
+  }
+.employeeLoginLink > a{
+    color:black!important;
+    font-size: 16px!important;
+}
+:root { --dxp-c-section-columns-max-width: 1440px; }

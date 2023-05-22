@@ -1,0 +1,217 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-05-2023
+  @last modified by  : MAIT - @moidriss
+-->
+<template>
+    <template if:true={addArticle}>
+        <article class="slds-card slds-card_boundary">
+            <!-- Header -->
+            <div class="slds-card__header slds-page-header slds-grid" style="margin: unset !important;">
+                <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name="standard:dataset" size="medium">
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 style="font-weight: 600; font-size: 20px;" class="slds-card__header-title">
+                            {title}
+                        </h2>
+                    </div>
+                    <template if:false={previewMode}>
+                        <template if:true={useSearch}>
+                            <div class="slds-no-flex">
+                                <lightning-input
+                                    name="enter-search"
+                                    variant="label-hidden"
+                                    type="search"
+                                    onchange={searchHandler}
+                                ></lightning-input>
+                            </div>
+                        </template>
+                        <template if:true={useActions}>
+                            <div class="slds-no-flex">
+                                <!-- NO FLOW MODE -->
+                                <template if:false={flowMode}>
+                                    <!-- SEARCH BAR // NO FLOW MODE -->
+                                    <template if:true={useSearch}>
+                                        <template if:true={useCustomActions}>
+                                            <lightning-button-menu alternative-text="Show menu" variant="border-filled" icon-name="utility:settings" onselect={handleOnselect_dispatched}>
+                                                <template for:each={customActions} for:item="action">
+                                                    <lightning-menu-item 
+                                                        key={action}
+                                                        label={action.label}
+                                                        value={action.name}>
+                                                    </lightning-menu-item>
+                                                </template>
+                                            </lightning-button-menu>
+                                        </template>
+                                        <template if:false={useCustomActions}>
+                                            <lightning-button-menu alternative-text="Show menu" variant="border-filled" icon-name="utility:settings" onselect={handleOnselect}>
+                                                <template if:true={useCreate}>
+                                                    <lightning-menu-item 
+                                                        label={createActionTitle}
+                                                        value="new">
+                                                    </lightning-menu-item>
+                                                </template>
+                                                <template if:true={useDelete}>
+                                                    <lightning-menu-item 
+                                                        label={deleteActionTitle}
+                                                        value="delete">
+                                                    </lightning-menu-item>
+                                                </template>
+                                                <template if:true={useUpdate}>
+                                                    <lightning-menu-item 
+                                                        label={updateActionTitle}
+                                                        value="update">
+                                                    </lightning-menu-item>
+                                                </template>
+                                            </lightning-button-menu>
+                                        </template>
+                                    </template>
+                                    <!-- NO SEARCH BAR // NO FLOW MODE -->
+                                    <template if:false={useSearch}>
+                                        <template if:true={useCustomActions}>
+                                            <lightning-button-group>
+                                                <template for:each={customActions} for:item="action">
+                                                    <lightning-button key={action} 
+                                                        label={action.label}
+                                                        name={action.name}
+                                                        title={action.title}
+                                                        onclick={handleClick_dispatched}
+                                                        class="slds-m-left_x-small"
+                                                        variant="brand-outline">
+                                                    </lightning-button>
+                                                </template>
+                                            </lightning-button-group>
+                                        </template>
+                                        <template if:false={useCustomActions}>
+                                            <lightning-button-group>
+                                                <template if:true={useCreate}>
+                                                    <lightning-button 
+                                                        label={createActionTitle}
+                                                        name="new"
+                                                        title={createActionTitle}
+                                                        onclick={handleClick}
+                                                        class="slds-m-left_x-small"
+                                                        variant="brand-outline">
+                                                    </lightning-button>
+                                                </template>
+                                                <template if:true={useDelete}>
+                                                    <lightning-button 
+                                                        label={deleteActionTitle}
+                                                        name="delete"
+                                                        title={deleteActionTitle}
+                                                        onclick={handleClick}
+                                                        class="slds-m-left_x-small"
+                                                        variant="brand-outline">
+                                                    </lightning-button>
+                                                </template>
+                                                <template if:true={useUpdate}>
+                                                    <lightning-button 
+                                                        label={updateActionTitle}
+                                                        name="update"
+                                                        title={updateActionTitle}
+                                                        onclick={handleClick}
+                                                        class="slds-m-left_x-small"
+                                                        variant="brand-outline">
+                                                    </lightning-button>
+                                                </template>
+                                            </lightning-button-group>  
+                                        </template>
+                                    </template>
+                                </template> 
+                                <!-- FLOW MODE -->
+                                <template if:true={flowMode}>
+                                    <!-- SEARCH BAR // FLOW MODE -->
+                                    <template if:true={useSearch}>
+                                        <lightning-button-menu alternative-text="Show menu" variant="border-filled" icon-name="utility:settings" onselect={handleOnselect}>
+                                            <template for:each={customActions} for:item="action">
+                                                <lightning-menu-item 
+                                                    key={action}
+                                                    label={action.label}
+                                                    value={action.name}>
+                                                </lightning-menu-item>
+                                            </template>
+                                        </lightning-button-menu>
+                                    </template>
+                                    <!-- NO SEARCH BAR // FLOW MODE -->
+                                    <template if:false={useSearch}>
+                                        <lightning-button-group>
+                                            <template for:each={customActions} for:item="action">
+                                                <lightning-button key={action} 
+                                                    label={action.label}
+                                                    name={action.name}
+                                                    title={action.title}
+                                                    onclick={handleClick}
+                                                    class="slds-m-left_x-small"
+                                                    variant="brand-outline">
+                                                </lightning-button>
+                                            </template>
+                                        </lightning-button-group>
+                                    </template>  
+                                </template>                              
+                            </div>
+                        </template>                        
+                    </template>
+                </header>
+            </div>
+            <!-- Table -->
+            <div class="slds-card__body" style="margin-top: unset !important;" onclick={closeAllEdit}>
+                <div>
+                    <c-lwc_-data-grid_-table
+                        draft-records={draftRecords}
+                        selected-records={selectedRecords}
+                        processed-records={processedRecords}
+                        records={records}
+                        columns={columns}
+                        state={state}
+                        preview-mode={previewMode}
+                        title={title}
+                        flow-mode={flowMode}
+                        table-icon={tableIcon}
+                        object-api-name={objectApiName}
+                        display-in-card={displayInCard}
+                        source={source}
+                        with-selection={withSelection}
+                        all-selected={allSelected}
+                        hide-master-select={hideMasterSelect}
+                        onselect={selectEvent}
+                        onhref={hrefEvent}
+                        onchange={inlineEditEvent}>
+                    </c-lwc_-data-grid_-table>
+                </div>
+            </div>
+        </article>
+    </template>
+    <!-- Blank Design -->
+    <template if:false={addArticle}>
+        <div>
+            <c-lwc_-data-grid_-table
+                center-header={centerHeader}
+                no-text-ellipsis={noTextEllipsis}
+                draft-records={draftRecords}
+                selected-records={selectedRecords}
+                processed-records={processedRecords}
+                records={records}
+                columns={columns}
+                state={state}
+                preview-mode={previewMode}
+                title={title}
+                flow-mode={flowMode}
+                table-icon={tableIcon}
+                object-api-name={objectApiName}
+                display-in-card={displayInCard}
+                source={source}
+                with-selection={withSelection}
+                all-selected={allSelected}
+                hide-master-select={hideMasterSelect}
+                onselect={selectEvent}
+                onhref={hrefEvent}
+                onchange={inlineEditEvent}>
+            </c-lwc_-data-grid_-table>
+        </div>
+    </template>
+</template>

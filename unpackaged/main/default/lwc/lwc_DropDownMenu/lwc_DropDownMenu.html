@@ -1,0 +1,100 @@
+<template>
+    <div>
+        <template if:true={withHeader}>
+            <div class="slds-form-element__label">
+                <template if:true={required}>
+                    <abbr title="required" class="slds-required">*</abbr>
+                </template>
+                {headerLabel}
+            </div>
+        </template>
+        <details class="select-box" onclick={detailsOpened}>
+            <summary class="select-box__current" tabindex="0">
+                <div style="width: 100%;" class="select-box__display-value">
+                    <template if:true={withSearch}>
+                        <template if:false={selection}>
+                            <p class="select-box__input-text">{currentValue}</p>
+                        </template>
+                        <template if:true={selection}>
+                            <input class="simple__input" style="padding: 5px 0px; border: unset; width: 100%;" type="text" value={inputValue} onkeypress={handleUserType}>
+                        </template>
+                    </template>
+                    <template if:false={withSearch}>
+                        <p class="select-box__input-text">{currentValue}</p>
+                    </template>
+                </div>
+                <template for:each={optionsSave} for:item="opt">
+                    <template if:true={opt.groupName}>
+                        <template for:each={opt.child} for:item="option">
+                            <div key={option.id} class="select-box__value">
+                                <input class="select-box__input" type="radio" id={option.id} value={option.value} name="choice" required={required} checked={option.selected} onchange={handleSelect} />
+                                <!-- <p class="select-box__input-text">{option.label}</p> -->
+                            </div>
+                        </template>
+                    </template>
+                    <template if:false={opt.groupName}>
+                        <template if:false={opt.noValue}>
+                            <div key={opt.id} class="select-box__value">
+                                <input class="select-box__input" type="radio" id={opt.id} value={opt.value} name="choice" checked={opt.selected} required={required} onchange={handleSelect} />
+                                <!-- <p class="select-box__input-text">{opt.label}</p> -->
+                            </div>
+                        </template>
+                    </template>
+                </template>
+                <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>
+            </summary>
+            <ul class={ulClass}>
+                <template for:each={optionsSave} for:item="opt">
+                    <template if:true={opt.groupName}>
+                        <template if:true={opt.child}>
+                            <div key={opt.id} class="select-box__groupe-name">{opt.groupName}</div>
+                            <template for:each={opt.child} for:item="option">
+                                <li key={option.id}>
+                                    <label class="select-box__option" for={option.id} aria-hidden="aria-hidden">
+                                        <template if:true={option.icon}>
+                                            <div style="padding: 5px 10px;">
+                                                <lightning-icon icon-name={option.icon} size="xx-small"></lightning-icon>
+                                            </div>
+                                        </template>
+                                        <div style="display: flex; flex-direction: column; padding-left: 10px;">
+                                            <div>{option.label}</div>
+                                            <template if:true={option.type}>
+                                                <div class="select-box__option-type">{option.type}</div>
+                                            </template>
+                                        </div>
+                                    </label>
+                                </li>
+                            </template>
+                        </template>
+                    </template>
+                    <template if:false={opt.groupName}>
+                        <template if:true={opt.noValue}>
+                            <li key={opt.id}>
+                                <label class="select-box__option select-box__option-no-hover" aria-hidden="aria-hidden">
+                                    <div style="padding: 5px 30px;">{opt.label}</div>
+                                </label>
+                            </li>
+                        </template>
+                        <template if:false={opt.noValue}>
+                            <li key={opt.id}>
+                                <label class="select-box__option" for={opt.id} aria-hidden="aria-hidden">
+                                    <template if:true={opt.icon}>
+                                        <div style="padding: 5px 10px;">
+                                            <lightning-icon icon-name={opt.icon} size="xx-small"></lightning-icon>
+                                        </div>
+                                    </template>
+                                    <div style="display: flex; flex-direction: column; padding-left: 10px;">
+                                        <div>{opt.label}</div>
+                                        <template if:true={opt.type}>
+                                            <div class="select-box__option-type">{opt.type}</div>
+                                        </template>
+                                    </div>
+                                </label>
+                            </li>
+                        </template>
+                    </template>
+                </template>
+            </ul>
+        </details>
+    </div>
+</template>

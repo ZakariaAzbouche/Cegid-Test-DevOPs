@@ -1,0 +1,408 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-05-2023
+  @last modified by  : MAIT - @moidriss
+-->
+<template lwc:render-mode='light' >
+    <table>
+        <!-- Table Header -->
+        <template if:false={mobileMode}>
+            <thead>
+                <tr class="div-table-row__header">
+                    <template if:true={withSelection}>
+                        <template if:false={hideMasterSelect}>
+                            <th class={centerHeaderStyle} style="width: 5%;
+                                justify-content: center;
+                                display: flex;">
+                                <lightning-input
+                                    variant="label-hidden"
+                                    name="master"
+                                    type="checkbox"
+                                    checked={masterChecked}
+                                    onchange={handleSelect}>
+                                </lightning-input>
+                            </th>
+                        </template>
+                    </template>
+                    <template for:each={clmns} for:item="clmn">
+                        <template if:true={clmn.visible}>
+                            <th key={clmn} class="div-table-col__header" width={headerColWidth}>
+                                <div class={textWrap} title={clmn.label}>{clmn.label}</div>
+                            </th>
+                        </template>
+                    </template>
+                </tr>
+            </thead>
+        </template>
+        <!-- Used in Salesforce -->
+        <tbody>
+            <template if:false={usedInPublicCommunity}>
+                <template for:each={processed__records} for:item="record">
+                    <tr class="slds-hint-parent div-table-row" key={record} data-record-id={record.Id} data-id={record.Id}>
+                        <!-- Modile Template -->
+                        <template if:true={mobileMode}>
+                            <template if:true={withSelection}>
+                                <td style="width: 5%;
+                                            justify-content: center;
+                                            display: flex;">
+                                    <lightning-input
+                                        variant="label-hidden"
+                                        name="single"
+                                        data-record-id={record.Id}
+                                        type="checkbox"
+                                        checked={record.selected}
+                                        onchange={handleSelect}>
+                                    </lightning-input>
+                                </td>
+                            </template>
+                            <lightning-record-edit-form class="mobile" style="flex-grow: 1;" record-id={record.Id} object-api-name={record.referenceName}>
+                                <template for:each={record.fields} for:item="field">
+                                    <template if:true={field.visible}>
+                                        <td class={field.class} key={field}>
+                                            <div class="field-label">
+                                                <div title={field.label}>{field.label}</div>
+                                            </div>
+                                            <div>
+                                                <template if:true={field.edit}>
+                                                    <template if:true={field.checkbox}>
+                                                        <lightning-input
+                                                            type="checkbox"
+                                                            data-record-id={record.Id}
+                                                            data-field-name={field.name}
+                                                            message-when-value-missing={field.valueMissing}
+                                                            value={field.value}
+                                                            required={field.required}
+                                                            onchange={handleInlineEdit}>
+                                                        </lightning-input>
+                                                    </template>
+                                                    <template if:false={field.checkbox}>
+                                                        <lightning-input-field
+                                                            data-record-id={record.Id}
+                                                            data-field-name={field.name}
+                                                            message-when-value-missing={field.valueMissing}
+                                                            field-name={field.name}
+                                                            variant="label-hidden"
+                                                            value={field.value}
+                                                            required={field.required}
+                                                            onclick={preventPropagation}
+                                                            onchange={handleInlineEdit}>
+                                                        </lightning-input-field>
+                                                    </template>
+                                                </template>
+                                                <template if:false={field.edit}>
+                                                    <template if:true={field.editable}>
+                                                        <div class="editable text-wrap" id={record.Id} style="display: flex; flex-wrap: wrap; align-items: center;" title={field.value} ondblclick={editLine}>
+                                                            <div style={fieldWidth}>
+                                                                <lightning-output-field variant="label-hidden" field-name={field.name} required={field.required} value={field.value}></lightning-output-field>
+                                                                <!-- {field.displayedValue} -->
+                                                            </div>
+                                                            <div style="width: 10%;">
+                                                                <lightning-icon
+                                                                    class="edit-icon"
+                                                                    data-record-id={record.Id}
+                                                                    icon-name="action:edit"
+                                                                    size="x-small"
+                                                                    onclick={editLine}>
+                                                                ></lightning-icon>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                    <template if:false={field.editable}>
+                                                        <template if:true={field.clickable}>
+                                                            <a class={textWrap} title={field.value} data-href-index={record.index} onclick={clicked}>
+                                                                <lightning-output-field variant="label-hidden" field-name={field.name} required={field.required} value={field.value}></lightning-output-field>
+                                                            </a>
+                                                        </template>
+                                                        <template if:false={field.clickable}>
+                                                            <div class={textWrap} title={field.value}>
+                                                                <lightning-output-field variant="label-hidden" field-name={field.name} required={field.required} value={field.value}></lightning-output-field>
+                                                            </div>
+                                                        </template>
+                                                    </template>
+                                                </template>
+                                            </div>
+                                        </td>
+                                    </template>
+                                </template>
+                            </lightning-record-edit-form>
+                        </template>
+                        <!-- Desktop / Tablet Template -->
+                        <template if:false={mobileMode}>
+                            <template if:true={withSelection}>
+                                <td style="width: 5%;
+                                            justify-content: center;
+                                            display: flex;">
+                                    <lightning-input
+                                        variant="label-hidden"
+                                        name="single"
+                                        data-record-id={record.Id}
+                                        type="checkbox"
+                                        checked={record.selected}
+                                        onchange={handleSelect}>
+                                    </lightning-input>
+                                </td>
+                            </template>
+                            <lightning-record-edit-form style="flex-grow: 1;" record-id={record.Id} object-api-name={record.referenceName}>
+                                <template for:each={record.fields} for:item="field">
+                                    <template if:true={field.visible}>
+                                        <td class={field.class} width={colWidth} key={field}>
+                                            <template if:true={field.edit}>
+                                                <template if:true={field.edit}>
+                                                    <template if:true={field.checkbox}>
+                                                        <lightning-input
+                                                            type="checkbox"
+                                                            name={record.Id}
+                                                            data-type="checkbox"
+                                                            data-record-id={record.Id}
+                                                            data-field-name={field.name}
+                                                            message-when-value-missing={field.valueMissing}
+                                                            checked={field.value}
+                                                            required={field.required}
+                                                            onclick={preventPropagation}
+                                                            onchange={handleInlineEdit}>
+                                                        </lightning-input>
+                                                    </template>
+                                                    <template if:false={field.checkbox}>
+                                                        <lightning-input-field
+                                                            data-record-id={record.Id}
+                                                            data-field-name={field.name}
+                                                            message-when-value-missing={field.valueMissing}
+                                                            field-name={field.name}
+                                                            variant="label-hidden"
+                                                            value={field.value}
+                                                            required={field.required}
+                                                            onclick={preventPropagation}
+                                                            onchange={handleInlineEdit}>
+                                                        </lightning-input-field>
+                                                    </template>
+                                                </template>
+                                            </template>
+                                            <template if:false={field.edit}>
+                                                <template if:true={field.editable}>
+                                                    <div class="editable text-wrap" id={record.Id} style="display: flex; flex-wrap: wrap; align-items: center;" title={field.value} ondblclick={editLine}>
+                                                        <div style={fieldWidth}>
+                                                            <lightning-output-field variant="label-hidden" field-name={field.name} required={field.required} value={field.value}></lightning-output-field>
+                                                            <!-- {field.displayedValue} -->
+                                                        </div>
+                                                        <div style="width: 10%;">
+                                                            <lightning-icon
+                                                                class="edit-icon"
+                                                                data-record-id={record.Id}
+                                                                icon-name="action:edit"
+                                                                size="x-small"
+                                                                onclick={editLine}>
+                                                            </lightning-icon>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                                <template if:false={field.editable}>
+                                                    <template if:true={field.clickable}>
+                                                        <a class={textWrap} title={field.value} data-href-index={record.index} onclick={clicked}>
+                                                            <lightning-output-field variant="label-hidden" field-name={field.name} required={field.required} value={field.value}></lightning-output-field>
+                                                        </a>
+                                                    </template>
+                                                    <template if:false={field.clickable}>
+                                                        <div class={textWrap} title={field.value}>
+                                                            <lightning-output-field variant="label-hidden" field-name={field.name} required={field.required} value={field.value}></lightning-output-field>
+                                                        </div>
+                                                    </template>
+                                                </template>
+                                            </template>
+                                        </td>
+                                    </template>
+                                </template>
+                            </lightning-record-edit-form>
+                        </template>
+                    </tr>
+                </template>
+            </template>
+            <!-- this section where profil is a guest user we cannot use standards -->
+            <template if:true={usedInPublicCommunity}>
+                <template for:each={processed__records} for:item="record">
+                    <tr key={record} data-record-id={record.Id} class="slds-hint-parent div-table-row">
+                        <template if:true={mobileMode}>
+                            <template if:true={withSelection}>
+                                <td style="width: 5%;
+                                            justify-content: center;
+                                            display: flex;">
+                                    <lightning-input
+                                        variant="label-hidden"
+                                        name="single"
+                                        data-record-id={record.Id}
+                                        type="checkbox"
+                                        checked={record.selected}
+                                        onchange={handleSelect}>
+                                    </lightning-input>
+                                </td>
+                            </template>
+                            <template for:each={record.fields} for:item="field">
+                                <template if:true={field.visible}>
+                                    <td class={field.class} width={colWidth} key={key}>
+                                        <div class="field-label">
+                                            <div title={clmn.label}>{clmn.label}</div>
+                                        </div>
+                                        <div>
+                                            <template if:true={field.edit}>
+                                                <template if:true={field.checkbox}>
+                                                    <lightning-input
+                                                        data-record-id={record.Id}
+                                                        data-field-name={field.name}
+                                                        message-when-value-missing={field.valueMissing}
+                                                        field-name={field.name}
+                                                        variant="label-hidden"
+                                                        value={field.value}
+                                                        required={field.required}
+                                                        onclick={preventPropagation}
+                                                        onchange={handleInlineEdit}>
+                                                    </lightning-input>
+                                                </template>
+                                                <template if:true={field.type}>
+                                                    <lightning-input
+                                                        data-record-id={record.Id}
+                                                        data-field-name={field.name}
+                                                        message-when-value-missing={field.valueMissing}
+                                                        type={field.type}
+                                                        required={field.required}
+                                                        value={field.value}
+                                                        variant="label-hidden"
+                                                        onclick={preventPropagation}
+                                                        onchange={handleInlineEdit}>
+                                                    </lightning-input>
+                                                </template>
+                                                <template if:true={field.list}>
+                                                    <lightning-combobox
+                                                        data-record-id={record.Id}
+                                                        data-field-name={field.name}
+                                                        value={field.value}
+                                                        message-when-value-missing={field.valueMissing}
+                                                        required={field.required}
+                                                        placeholder={picklistPlaceholder}
+                                                        options={field.options}
+                                                        variant="label-hidden"
+                                                        onchange={handleInlineEdit}>
+                                                    </lightning-combobox>
+                                                </template>
+                                            </template>
+                                            <template if:false={field.edit}>
+                                                <template if:true={field.editable}>
+                                                    <div class="editable text-wrap" id={record.Id} style="display: flex; flex-wrap: wrap; align-items: center;" title={field.value} ondblclick={editLine}>
+                                                        <div style={fieldWidth}>
+                                                            {field.displayedValue}
+                                                        </div>
+                                                        <div style="width: 10%;">
+                                                            <lightning-icon
+                                                                class="edit-icon"
+                                                                data-record-id={record.Id}
+                                                                icon-name="action:edit"
+                                                                size="x-small"
+                                                                onclick={editLine}>
+                                                            </lightning-icon>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                                <template if:false={field.editable}>
+                                                    <template if:true={field.clickable}>
+                                                        <a class={textWrap} title={field.value} data-href-index={record.index} onclick={clicked}>
+                                                            {field.displayedValue}
+                                                        </a>
+                                                    </template>
+                                                    <template if:false={field.clickable}>
+                                                        <div class={textWrap} title={field.value}>
+                                                            {field.displayedValue}
+                                                        </div>
+                                                    </template>
+                                                </template>
+                                            </template>
+                                        </div>
+                                    </td>
+                                </template>
+                            </template>
+                        </template>
+                        <template if:false={mobileMode}>
+                            <template if:true={withSelection}>
+                                <td style="width: 5%;
+                                            justify-content: center;
+                                            display: flex;">
+                                    <lightning-input
+                                        variant="label-hidden"
+                                        name="single"
+                                        data-record-id={record.Id}
+                                        type="checkbox"
+                                        checked={record.selected}
+                                        onchange={handleSelect}>
+                                    </lightning-input>
+                                </td>
+                            </template>
+                            <template for:each={record.fields} for:item="field">
+                                <template if:true={field.visible}>
+                                    <td class={field.class} width={colWidth} key={key}>
+                                        <template if:true={field.edit}>
+                                            <template if:true={field.type}>
+                                                <lightning-input
+                                                    data-record-id={record.Id}
+                                                    data-field-name={field.name}
+                                                    message-when-value-missing={field.valueMissing}
+                                                    type={field.type}
+                                                    required={field.required}
+                                                    value={field.value}
+                                                    variant="label-hidden"
+                                                    onclick={preventPropagation}
+                                                    onchange={handleInlineEdit}>
+                                                </lightning-input>
+                                            </template>
+                                            <template if:true={field.list}>
+                                                <lightning-combobox
+                                                    data-record-id={record.Id}
+                                                    data-field-name={field.name}
+                                                    value={field.value}
+                                                    message-when-value-missing={field.valueMissing}
+                                                    required={field.required}
+                                                    placeholder={picklistPlaceholder}
+                                                    options={field.options}
+                                                    variant="label-hidden"
+                                                    onchange={handleInlineEdit}>
+                                                </lightning-combobox>
+                                            </template>
+                                        </template>
+                                        <template if:false={field.edit}>
+                                            <template if:true={field.editable}>
+                                                <div class="editable text-wrap" id={record.Id} style="display: flex; flex-wrap: wrap; align-items: center;" title={field.value} ondblclick={editLine}>
+                                                    <div style={fieldWidth}>
+                                                        {field.displayedValue}
+                                                    </div>
+                                                    <div style="width: 10%;">
+                                                        <lightning-icon
+                                                            class="edit-icon"
+                                                            data-record-id={record.Id}
+                                                            icon-name="action:edit"
+                                                            size="x-small"
+                                                            onclick={editLine}>
+                                                        ></lightning-icon>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                            <template if:false={field.editable}>
+                                                <template if:true={field.clickable}>
+                                                    <a class={textWrap} title={field.value} data-href-index={record.index} onclick={clicked}>
+                                                        {field.displayedValue}
+                                                    </a>
+                                                </template>
+                                                <template if:false={field.clickable}>
+                                                    <div class={textWrap} title={field.value}>
+                                                        {field.displayedValue}
+                                                    </div>
+                                                </template>
+                                            </template>
+                                        </template>
+                                    </td>
+                                </template>
+                            </template>
+                        </template>
+                    </tr>
+                </template>
+            </template>
+        </tbody>
+    </table>
+</template>

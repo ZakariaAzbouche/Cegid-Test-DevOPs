@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen" configurationEditor="c-lwc_-component-editor">
+            <!-- Input properties -->
+            <property name="flowMode" label="Used in Flow ?" type="Boolean" role="inputOnly" default="false" />
+            <property name="title" label="Table's title" type="String" role="inputOnly" />
+            <property name="tableIcon" label="Table's icon" type="String" role="inputOnly" default="standard:dataset" />
+            <propertyType name="T" extends="SObject" label="SObject Type" description="Generic sObject data type used for input sObject properties" />
+            <property name="records" type="{T[]}" label="Record Collection" role="inputOnly" />
+            <property name="previewMode" label="Execute in preview mode ?" type="Boolean" role="inputOnly" default="false" />
+            <property name="columns" type="String" label="Records Table Columns" role="inputOnly" />
+            <property name="actionName" label="Action Name" type="String" role="inputOnly" /> <!-- deprecated -->
+            <property name="buttonActionName" label="Button Label" type="String" role="inputOnly" /> <!-- deprecated -->
+            <property name="source" label="Source type" type="String" role="inputOnly" />
+            <property name="displayInCard" label="Display mode" type="String" role="inputOnly" />
+            <property name="withSelection" type="Boolean" label="Table with select checkbox" role="inputOnly" />
+            <property name="allSelected" type="Boolean" label="Are checkboxes selected by default" role="inputOnly" />
+            <property name="useSearch" type="Boolean" label="Use built-in search bar" role="inputOnly" />
+            <property name="useActions" type="Boolean" label="Use actions" role="inputOnly" />
+            <property name="useCustomActions" type="Boolean" label="Override built-in actions" role="inputOnly" />
+            <property name="actions" type="String" label="Custom actions definition" role="inputOnly" />
+            <property name="useCreate" type="Boolean" label="Use built-in create action" role="inputOnly" />
+            <property name="useDelete" type="Boolean" label="Use built-in delete action" role="inputOnly" />
+            <property name="useUpdate" type="Boolean" label="use built-in update action" role="inputOnly" />
+            <!-- Output properties -->
+            <property name="selectedRecords" type="{T[]}" label="Selected Records" role="outputOnly" />
+            <property name="draftRecords" type="{T[]}" label="Draft Records" role="outputOnly" description="Records value from inline editing, used mainly to save data" />
+            <property name="state" type="String" label="Flow State" role="outputOnly" />    
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

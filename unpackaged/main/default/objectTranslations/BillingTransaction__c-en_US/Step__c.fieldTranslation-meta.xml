@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+        <help><!-- Allowed values : &quot;1&quot;, &quot;1.1&quot;, &quot;.1&quot; --></help>
+        <label><!-- Step --></label>
+        <name>Step__c</name>
+    </CustomFieldTranslation>

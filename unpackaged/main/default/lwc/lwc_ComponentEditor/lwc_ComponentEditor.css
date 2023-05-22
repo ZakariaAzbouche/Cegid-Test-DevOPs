@@ -1,0 +1,236 @@
+/* Color Variables */
+:host {
+  --white: #ffffff;
+  --light: #f0eff3;
+  --black: #000000;
+  --dark-blue: #1f2029;
+  --dark-light: #353746;
+  --brand: #17a0db;
+  --sub-brand: #3498db;
+  --icon-foreground: #747474;
+}
+
+/* Main CSS Styling */
+.table {
+  margin: 10px 0px;
+  align-items: center;
+}
+
+.head {
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  background: #009bde;
+}
+
+.head:first-of-type {
+  border-top-left-radius: 5px;
+}
+
+.head:last-of-type {
+  border-top-right-radius: 5px;
+}
+
+/* Global Styling -- START */
+.flex-row,
+.flex-column {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-10 {
+  width: 10%;
+}
+
+.w-15 {
+  width: 15%;
+}
+
+.w-55 {
+  width: 55%;
+}
+
+.w-70 {
+  width: 70%;
+}
+
+.text-size-10 {
+  font-size: 10px;
+}
+
+.text-size-14 {
+    font-size: 14px;
+}
+
+.text-weight-600 {
+  font-weight: 600;
+}
+
+.mg-bt-10 {
+    margin-bottom: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+p.error {
+  color: red;
+  font-size: 14px;
+}
+/* Global Styling -- END */
+
+/* Input -- START */
+[type="checkbox"]:checked,
+[type="checkbox"]:not(:checked),
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+/* Input -- END */
+
+/* Icon Styling -- START */
+lightning-icon {
+  --sds-c-icon-color-background: transparent;
+  --sds-c-icon-color-foreground: var(--icon-foreground);
+}
+/* Icon Styling -- END */
+
+/* Usage Mode -- START */
+.checkbox-tools:checked + label,
+.checkbox-tools:not(:checked) + label {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  width: 82px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 1px;
+  margin: 10px auto;
+  text-align: center;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: var(--icon-foreground);
+  -webkit-transition: all 300ms linear;
+  transition: all 300ms linear;
+}
+.checkbox-tools:not(:checked) + label {
+    background-color: var(--white);
+    color: var(--icon-foreground);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+.checkbox-tools:checked + label {
+    background-color: var(--sub-brand);
+    color: var(--white);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.checkbox-tools:not(:checked) + label:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+/* .checkbox-tools:checked + label::before,
+.checkbox-tools:not(:checked) + label::before{
+	position: absolute;
+	content: '';
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 4px;
+	background-image: linear-gradient(298deg, var(--brand), var(--sub-brand));
+	z-index: -1;
+} */
+.checkbox-tools:checked + label lightning-icon {
+  --sds-c-icon-color-foreground: var(--white);
+  -webkit-transition: --sds-c-icon-color-foreground 300ms linear;
+  transition: --sds-c-icon-color-foreground 300ms linear;
+}
+.checkbox-tools:not(:checked) + label lightning-icon {
+  --sds-c-icon-color-foreground: var(--icon-foreground);
+  -webkit-transition: --sds-c-icon-color-foreground 300ms linear;
+  transition: --sds-c-icon-color-foreground 300ms linear;
+}
+/* Usage Mode -- END */
+
+/* Switch Record Search -- START */
+.switch-button {
+    padding: 10px;
+    height: 52px;
+}
+
+.switch,
+.toggle {
+    height: 2rem;
+    border-radius: 100px;
+}
+
+.switch {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 100px;
+    margin: 1.8rem 0 4rem 0;
+    cursor: pointer;
+}
+
+.toggle {
+    width: 50%;
+    background-color: var(--sub-brand);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.names {
+    font-size: 90%;
+    font-weight: bolder;
+    position: relative;
+    display: flex;
+    text-align: center;
+    user-select: none;
+    transform: translateY(-27px);
+}
+
+.dark {
+    font-weight: 400;
+    color: var(--icon-foreground);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.light {
+    font-weight: bolder;
+    color: var(--white);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+[type="checkbox"] {
+    display: none;
+}
+/* Toggle */
+[type="checkbox"]:checked + label .toggle {
+    transform: translateX(100%);
+    background-color: var(--sub-brand);
+}
+[type="checkbox"]:checked + label .dark {
+    font-weight: bolder;
+    color: var(--white);
+}
+[type="checkbox"]:checked + label .light {
+    font-weight: 400;
+    color: var(--icon-foreground);
+}
+/* Switch Record Search -- END */

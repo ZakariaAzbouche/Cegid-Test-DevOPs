@@ -1,0 +1,78 @@
+lightning-icon.edit-icon {
+    --sds-c-icon-color-background: transparent;
+    --sds-c-icon-color-foreground: #e7e7e7;
+}
+
+.editable:hover lightning-icon {
+    --sds-c-icon-color-foreground: #747474;
+    cursor: pointer;
+}
+
+.div-table {
+    display: flex; 
+    flex-direction: column;   
+    width: 100%;       
+    flex-wrap: wrap;
+    border-spacing: 5px; /* cellspacing:poor IE support for  this */
+}
+.div-table-row__header,
+.div-table-row {
+    display: flex;
+    width: 100%;
+    clear: both;
+    border-bottom: 1px solid #e5e5e5;
+    align-items: center;
+}
+.div-table-col-child {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    clear: both;
+    align-items: left;
+    padding: 0px 10px;
+    gap: 5px;
+}
+.div-table-row:first-child {
+    margin-top: 10px;
+}
+.div-table-row:not(:last-child) {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.div-table-row:hover {
+    background-color: #F3F3F3;
+}
+.div-table-col__header {
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 15px;
+}
+.div-table-col__header,
+.div-table-col {
+    float: left; /* fix for  buggy browsers */
+    padding: 10px;
+}
+
+.field-label {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+lightning-record-edit-form lightning-record-edit-form-create form {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.changed {
+    background-color: #FAFFBD;
+}
+
+.selectedRow {
+    background-color: #EEEEEE;
+}
+
+.checkbox {
+    margin: 0 10px;
+}

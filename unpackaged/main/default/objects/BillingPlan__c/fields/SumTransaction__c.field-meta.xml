@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SumTransaction__c</fullName>
+    <externalId>false</externalId>
+    <label>Sum Transaction (%)</label>
+    <summarizedField>BillingTransaction__c.Percentage__c</summarizedField>
+    <summaryForeignKey>BillingTransaction__c.BillingPlan__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_BillingPlan_NoModificationAllowed</fullName>
+    <active>true</active>
+    <description>VR to not allow any modification on the Billing Plan after Check Quote</description>
+    <errorConditionFormula>AND(
+$User.BypassVR__c = FALSE,
+OR(
+ Quote__r.RecordType.DeveloperName = 'After_Checks',
+ ISPICKVAL(Quote__r.SBQQ__Status__c, 'Presented')
+),
+OR(
+SumTransaction__c &lt;&gt; 100, 
+ISCHANGED(Transactions__c)
+)
+)</errorConditionFormula>
+    <errorMessage>After quote has been checked, you can't edit the Billing Plan.</errorMessage>
+</ValidationRule>

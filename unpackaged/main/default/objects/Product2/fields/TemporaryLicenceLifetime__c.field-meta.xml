@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TemporaryLicenceLifetime__c</fullName>
+    <description>Project: Service Now.
+Durée de vie en jours dans le parc pour les licences temporaires (ex : license pour stagiaire)</description>
+    <externalId>false</externalId>
+    <label>Temporary Licence Lifetime</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

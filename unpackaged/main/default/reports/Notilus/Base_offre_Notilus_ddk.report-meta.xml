@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>PRODUCT_NAME</field>
+    </columns>
+    <columns>
+        <field>PRODUCT_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>Product2.Product_Line__c</field>
+    </columns>
+    <columns>
+        <field>Product2.Reference_Number__c</field>
+    </columns>
+    <columns>
+        <field>FAMILY</field>
+    </columns>
+    <currency>EUR</currency>
+    <description>Rapport partagé avec les PMMS Notilus pour déterminer la hiérarchie et l&apos;architecture au sein des 3 offres.</description>
+    <filter>
+        <criteriaItems>
+            <column>Product2.BU_Offer__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>314</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Base offre Notilus</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>PricebookProduct</reportType>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

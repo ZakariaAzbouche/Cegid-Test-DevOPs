@@ -1,0 +1,268 @@
+<template>
+    <div class="main flex-column">
+        <div class="setting-wrapper flex-column mg-bt-10">
+            <div>
+                <p>Mode :</p>
+            </div>
+            <div class="flex-row flex-wrap">
+                <div class="flex-column w-50">
+                    <input class="checkbox-tools" type="radio" name="tools" id="performanceMode" onchange={handleModeChoice}>
+                    <label class="for-checkbox-tools" for="performanceMode">
+                        <lightning-icon icon-name="standard:apex"></lightning-icon>
+                        <div class="text-size-10 text-weight-600">Free Style</div>
+                    </label>
+                </div>
+                <div class="flex-column w-50">
+                    <input class="checkbox-tools" type="radio" name="tools" id="flowMode" checked={flowMode} onchange={handleModeChoice}>
+                    <label class="for-checkbox-tools" for="flowMode">
+                        <lightning-icon icon-name="standard:flow"></lightning-icon>
+                        <div class="text-size-10 text-weight-600">Flow</div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="setting-wrapper flex-column mg-bt-10">
+            <div>
+                <p>Utilities :</p>
+            </div>
+            <div class="flex-row flex-wrap">
+                <div class="flex-column w-50">
+                    <input class="checkbox-tools" type="checkbox" name="search" id="search" checked={useSearchBar} onchange={handleFeaturesChoice}>
+                    <label class="for-checkbox-tools" for="search">
+                        <lightning-icon icon-name="standard:search"></lightning-icon>
+                        <div class="text-size-10 text-weight-600">Search Bar</div>
+                    </label>
+                </div>
+                <div class="flex-column w-50">
+                    <input class="checkbox-tools" type="checkbox" name="actions" id="actions" checked={useActions} onchange={handleFeaturesChoice}>
+                    <label class="for-checkbox-tools" for="actions">
+                        <lightning-icon icon-name="standard:actions_and_buttons"></lightning-icon>
+                        <div class="text-size-10 text-weight-600">Actions</div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <template if:true={useActions}>
+            <div class="setting-wrapper flex-column mg-bt-10">
+                <div>
+                    <p>Actions definition :</p>
+                </div>
+                <template if:true={actions}>
+                    <template for:each={actions} for:item="action">
+                        <div class="flex-row flex-align-center flex-justify-end" key={action}>
+                            <p><Strong>Action {action.id}: </Strong></p>
+                            <lightning-button variant="destructive" data-id={action.id} label="Delete" title="Delete action with destructive variant" icon-name="utility:delete" class="slds-m-left_x-small" onclick={actionDeleteHandler}></lightning-button>
+                        </div>
+                        <div key={action} class="setting-wrapper flex-column mg-bt-10">
+                            <lightning-input type="text" data-id={action.id} label="Custom Action Label :" placeholder="Action label..." value={action.label} onchange={handlebuttonActionLabel}></lightning-input>
+                            <lightning-input type="text" data-id={action.id} label="Custom Action Name :" placeholder="Action name..." value={action.value} onchange={handlebuttonActionName}></lightning-input>
+                        </div>
+                    </template>
+                </template>
+                <div>
+                    <lightning-button variant="brand" label="Add action" title="Add action" onclick={addActionsHandler}></lightning-button>
+                </div>
+            </div>
+        </template>
+        <template if:true={flowMode}>
+            <div class="setting-wrapper flex-column mg-bt-10">
+                <div class="setting-wrapper">
+                    <template if:true={wait.waitObjects}>
+                        <div class="demo-only" style="height: 32px; position: relative">
+                            <div class="slds-spinner_container" style="background: transparent;">
+                            <div role="status" class="slds-spinner slds-spinner_small slds-spinner_brand">
+                                <span class="slds-assistive-text">Loading</span>
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                            </div>
+                        </div>
+                    </template>
+                    <template if:false={wait.waitObjects}>
+                        <c-lwc_-drop-down-menu
+                            name="inputType"
+                            header-label="Object for Record Variable"
+                            options={objects}
+                            required="true"
+                            onselect={handleInputTypeChange}
+                            with-search="true">
+                        </c-lwc_-drop-down-menu>
+                    </template>
+                </div>
+            </div>
+            <template if:true={objectApiName}>
+                <div class="setting-wrapper flex-column mg-bt-10">
+                    <lightning-input type="text" label="Titre de la table :" placeholder="Table's title..." value={title} onchange={handleTableTitle}></lightning-input>
+                </div>
+                <div class="setting-wrapper flex-column mg-bt-10">
+                    <lightning-input type="text" label="Icone de la table :" placeholder="Table's icon..." value={tableIcon} onchange={handleTableIcon}></lightning-input>
+                </div>
+                <div class="setting-wrapper flex-column mg-bt-10">
+                    <div>
+                        <p>Table Mode :</p>
+                    </div>
+                    <div class="flex-row flex-wrap">
+                        <div class="flex-column w-50">
+                            <input class="checkbox-tools" type="radio" name="tablesMode" id="previewMode" checked={previewMode} onchange={handlePerviewModeChoice}>
+                            <label class="for-checkbox-tools" for="previewMode">
+                                <lightning-icon icon-name="action:preview" size="small"></lightning-icon>
+                                <div class="text-size-10 text-weight-600">Preview</div>
+                            </label>
+                        </div>
+                        <div class="flex-column w-50">
+                            <input class="checkbox-tools" type="radio" name="tablesMode" id="editMode" checked={editMode} onchange={handlePerviewModeChoice}>
+                            <label class="for-checkbox-tools" for="editMode">
+                                <lightning-icon icon-name="action:edit" size="small"></lightning-icon>
+                                <div class="text-size-10 text-weight-600">Edit</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-wrapper flex-row flex-wrap mg-bt-10">
+                    <div>
+                        <p>Table with selection option : </p>
+                    </div>
+                    <div>
+                        <lightning-input
+                            variant="label-hidden"
+                            name="withSelection"
+                            type="checkbox"
+                            checked={withSelection}
+                            onchange={handleWithSelectionChange}>
+                        </lightning-input>
+                    </div>
+                </div>
+                <div class="setting-wrapper flex-row flex-wrap mg-bt-10">
+                    <div>
+                        <p>Are checkboxes selected by default : </p>
+                    </div>
+                    <div>
+                        <lightning-input
+                            variant="label-hidden"
+                            name="allSelected"
+                            type="checkbox"
+                            checked={allSelected}
+                            onchange={handleAllSelectedChange}>
+                        </lightning-input>
+                    </div>
+                </div>
+                <div class="setting-wrapper flex-column">
+                    <div class="switch-button mg-bt-10">
+                        <input type="checkbox" id="switch" onchange={handleProcessChoice}>
+                        <label class="switch" for="switch">
+                            <div class="toggle"></div>
+                            <div class="names flex-wrap">
+                                <div class="text-size-14 w-50 light">Record Collection</div>
+                                <div class="text-size-14 w-50 dark">Parent Id</div>
+                            </div>
+                        </label>
+                    </div>
+                    <template if:true={processById}>
+                        <div class="setting-wrapper flex-column mg-bt-10">
+                            <div>
+                                <template if:false={wait.waitObjects}>
+                                    <c-lwc_-drop-down-menu
+                                        name="variableInput-parentId"
+                                        header-label="Parent Record Id"
+                                        options={valueOptions}
+                                        required="true"
+                                        onselect={handleParentProcessInputChange}>
+                                    </c-lwc_-drop-down-menu>
+                                </template>
+                            </div>
+                            <div>
+                                <lightning-input
+                                    name="child-parentField"
+                                    label="Parent Field in Child"
+                                    value={parentFieldInChild}
+                                    placeholder="Type a field API Name..."
+                                    onchange={handleParentProcessInputChange}>
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </template>
+                    <template if:true={processByList}>
+                        <div class="setting-wrapper mg-bt-10">
+                            <template if:true={wait.waitObjects}>
+                                <div class="demo-only" style="height: 32px; position: relative">
+                                    <div class="slds-spinner_container" style="background: transparent;">
+                                    <div role="status" class="slds-spinner slds-spinner_small slds-spinner_brand">
+                                        <span class="slds-assistive-text">Loading</span>
+                                        <div class="slds-spinner__dot-a"></div>
+                                        <div class="slds-spinner__dot-b"></div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <template if:false={wait.waitObjects}>
+                                <template if:false={wait.waitObjects}>
+                                    <c-lwc_-drop-down-menu
+                                        name="variableInput-recordCollection"
+                                        header-label="Record Collection Variable"
+                                        options={recordsOptions}
+                                        required="true"
+                                        onselect={handleVariableChange}>
+                                    </c-lwc_-drop-down-menu>
+                                </template>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+                <div class="setting-wrapper flex-column mg-bt-10">
+                    <div>
+                        <p>Choisir les colonnes :</p>
+                    </div>
+                    <div>
+                        <template if:false={wait.waitObjects}>
+                            <a rel="noopener noreferrer" onclick={clearColumns}>Clear columns</a>
+                            <lightning-dual-listbox name="languages"
+                                variant="label-hidden"
+                                source-label="Colonnes Disponibles"
+                                selected-label="Colonnes Selectionnées"
+                                options={fieldsInObject}
+                                value={columnInstances}
+                                onchange={handleColumnChoice}>
+                            </lightning-dual-listbox>
+                            <template if:true={columns}>
+                                <div class="flex-row flex-wrap table">
+                                    <div class="w-15 head">
+                                        Visible
+                                    </div>
+                                    <div class="w-15 head">
+                                        Editable
+                                    </div>
+                                    <div class="w-15 head">
+                                        Required
+                                    </div>
+                                    <div class="w-55 head">
+                                        Edit column's label
+                                    </div>
+                                    <template for:each={columns} for:item="clmn">
+                                        <div key={clmn.value} class="w-15 center">
+                                            <lightning-input type="checkbox" variant="label-hidden" name={clmn.value} checked={clmn.visible} onchange={handlechangeColumnVisible}></lightning-input>
+                                        </div>
+                                        <div key={clmn.value} class="w-15 center">
+                                            <lightning-input type="checkbox" variant="label-hidden" name={clmn.value} checked={clmn.editable} onchange={handlechangeColumnEditable}></lightning-input>
+                                        </div>
+                                        <div key={clmn.value} class="w-15 center">
+                                            <lightning-input type="checkbox" variant="label-hidden" name={clmn.value} checked={clmn.required} onchange={handlechangeColumnRequired}></lightning-input>
+                                        </div>
+                                        <div key={clmn.value} class="w-55">
+                                            <lightning-input type="text" name={clmn.value} label={clmn.value} placeholder="New label..." value={clmn.label} onchange={handlechangeColumnLabel}></lightning-input>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </template>
+        <template if:false={flowMode}>
+            <p class="error">
+                Currently this component does not support running in free style mode from flow screen.
+                Free Style mode only accessible inside Code.
+            </p>
+        </template>
+    </div>
+</template>

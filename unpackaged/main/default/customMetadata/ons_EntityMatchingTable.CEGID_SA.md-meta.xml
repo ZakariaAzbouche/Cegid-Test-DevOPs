@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>CEGID SA</label>
+    <protected>false</protected>
+    <values>
+        <field>EntityCode__c</field>
+        <value xsi:type="xsd:string">002</value>
+    </values>
+    <values>
+        <field>EntityIdZuora__c</field>
+        <value xsi:type="xsd:string">8a28f1aa5d2cbd3b015d30c030bc098b</value>
+    </values>
+    <values>
+        <field>Source_BI__c</field>
+        <value xsi:type="xsd:string">2</value>
+    </values>
+</CustomMetadata>

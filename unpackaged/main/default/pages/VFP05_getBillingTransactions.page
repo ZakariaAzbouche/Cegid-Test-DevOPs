@@ -1,0 +1,82 @@
+<apex:page showHeader="false" sidebar="false" cache="false"  contentType="text/xml" controller="VFC05_getBillingTransactions"  action="{!init}">
+    
+    <block-container>
+        
+        <table border-bottom-style="solid" table-layout="fixed" font-size="9pt" font-family="Roboto" width="100%" margin-top="10pt">
+            
+            <table-header text-align="center">
+                <table-cell width="25px" display-align="center" padding="2" border="1pt solid  #002C52" >
+                    <block font-weight="bold" text-align="left">Step</block>
+                </table-cell>
+                <table-cell width="120px" display-align="center" padding="2" border="1pt solid  #002C52" >
+                    <block font-weight="bold" text-align="left">Name</block>
+                </table-cell>
+                <table-cell width="150px" display-align="center" padding="2" border="1pt solid  #002C52" >
+                    <block font-weight="bold" text-align="left">Description</block>
+                </table-cell>
+                <table-cell width="60px" display-align="center" padding="2" border="1pt solid  #002C52" >
+                    <block font-weight="bold" text-align="left">Est.Date</block>
+                </table-cell>
+                <table-cell width="60px" display-align="center" padding="2" border="1pt solid  #002C52" >
+                    <block font-weight="bold" text-align="left">Max.Date</block>
+                </table-cell>
+                <table-cell width="60px" display-align="center" padding="2" border="1pt solid  #002C52" >
+                    <block font-weight="bold" text-align="left">% Amount</block>
+                </table-cell>
+                <table-cell width="60px" display-align="center" padding="2" border="1pt solid  #002C52" >
+                    <block font-weight="bold" text-align="right">Amount</block>
+                </table-cell>
+            </table-header>
+            
+            <table-body>
+                <apex:repeat value="{!lstBillingTransaction}" var="bt" >
+                    <table-row border="1pt solid #002C52">
+                        <table-cell display-align="center" padding="5" border="1pt solid  #002C52">
+                            <block text-align="left">{!bt.Step__c}</block>
+                        </table-cell>
+                        <table-cell display-align="center" padding="5" border="1pt solid  #002C52">
+                            <block  text-align="left">{!bt.Name}</block>
+                        </table-cell>
+                        <table-cell display-align="center" padding="5" border="1pt solid  #002C52">
+                            <block text-align="left">
+                                <apex:outputText value="{!bt.Description__c}"/>
+                                <!-- <![CDATA[Tootsie roll tiramisu.<br />                         
+            						Danish topping sugar plum.]]> {!bt.Description__c} -->
+                            </block>
+                        </table-cell> 
+                        <table-cell display-align="center" padding="5" border="1pt solid  #002C52">
+                            <block  text-align="left">
+                                <apex:outputText value="{0,date,MM/dd/yy}"> 
+                                     <apex:param value="{!bt.EstimatedDate__c}" /> 
+                                </apex:outputText> 
+                            </block>
+                        </table-cell>
+                        <table-cell display-align="center" padding="5" border="1pt solid  #002C52">
+                            <block  text-align="left">
+                                <apex:outputText value="{0,date,MM/dd/yy}"> 
+                                     <apex:param value="{!bt.MaxDate__c}" /> 
+                                </apex:outputText>
+                            </block>
+                        </table-cell>
+                        <table-cell display-align="center" padding="5" border="1pt solid  #002C52">
+                            <block text-align="left">{!bt.Percentage__c}</block>
+                        </table-cell>
+                        <table-cell display-align="center" padding="5" border="1pt solid  #002C52">
+                            <block  text-align="right">{!bt.Amount__c}</block>
+                        </table-cell>
+                    </table-row>
+                </apex:repeat>
+                <table-row border="1pt solid #002C52">
+                    <table-cell display-align="center" padding="5" border="1pt solid  #002C52" number-columns-spanned="7">
+ 						<block  text-align="right">{!currencyCode} {!totalTransaction}</block>
+                    </table-cell>
+                    <!--<table-cell display-align="center" padding="5" border="1pt solid  #002C52">
+ 						<block  text-align="right">VAL HERE</block>
+                    </table-cell>-->
+                </table-row>
+
+            </table-body>
+        </table>
+    </block-container>
+    
+</apex:page>

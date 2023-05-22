@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>CEGID IBERICA</label>
+    <protected>false</protected>
+    <values>
+        <field>EntityCode__c</field>
+        <value xsi:type="xsd:string">2001</value>
+    </values>
+    <values>
+        <field>EntityIdZuora__c</field>
+        <value xsi:type="xsd:string">8a28a12c7de0a8fd017de28605cb01ab</value>
+    </values>
+    <values>
+        <field>Source_BI__c</field>
+        <value xsi:type="xsd:string">39</value>
+    </values>
+</CustomMetadata>
